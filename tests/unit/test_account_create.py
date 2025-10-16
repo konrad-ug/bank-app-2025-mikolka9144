@@ -15,11 +15,19 @@ class TestAccount:
         assert account.pesel == "Invalid"
 
     def test_account_creation_with_promo_code(self):
-        account = Account("Jane", "Doe",pesel="12345678901", promo_code="PROM_110")
+        account = Account("Jane", "Doe",pesel="80345678901", promo_code="PROM_110")
         assert account.balance == 50   
 
     def test_account_creation_with_invalid_promo_code(self):
-        account = Account("Jane", "Doe",pesel="12345678901", promo_code="test")
+        account = Account("Jane", "Doe",pesel="80345678901", promo_code="test")
+        assert account.balance == 0        
+
+    def test_account_creation_with_promo_code_and_too_old_age(self):
+        account = Account("Jane", "Doe",pesel="40345678901", promo_code="PROM_110")
+        assert account.balance == 0   
+
+    def test_account_creation_with_invalid_promo_code_and_too_old_age(self):
+        account = Account("Jane", "Doe",pesel="40345678901", promo_code="test")
         assert account.balance == 0    
 
     def test_account_creation_without_promo_code(self):

@@ -7,6 +7,11 @@ class BaseAccount:
         if amount <= self.balance:
             self.balance -= amount
             recipient_account.balance += amount
+    def express_transfer(self,amount,recipient_account,provision = 0):
+        if amount > self.balance:
+            return
+        self.transfer_money(amount,recipient_account)
+        self.balance -= provision
 
 
 class Account(BaseAccount):
@@ -29,6 +34,8 @@ class Account(BaseAccount):
         else:
             year = 2000 + year
         return current_year - year
+    def express_transfer(self,amount,recipient_account):
+        super().express_transfer(amount,recipient_account,1)
     
 class CompanyAccount(BaseAccount):
         def __init__(self, company_name, nip_number):
@@ -38,3 +45,5 @@ class CompanyAccount(BaseAccount):
                 self.nip_number = "Invalid"
             else:
                 self.nip_number = nip_number
+        def express_transfer(self,amount,recipient_account):
+            super().express_transfer(amount,recipient_account,5)

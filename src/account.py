@@ -19,3 +19,7 @@ class Account:
         else:
             year = 2000 + year
         return current_year - year
+    def transfer_money(self, amount, recipient_account):
+        if amount <= self.balance:
+            self.balance -= amount
+            recipient_account.balance += amount

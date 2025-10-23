@@ -9,13 +9,11 @@ class TestAccount:
         self.recv_account.balance = 10
 
     def test_normal_transfer(self):
-        self.setup_method()
         self.ext_account.transfer_money(50, self.recv_account)
         assert self.ext_account.balance == 50
         assert self.recv_account.balance == 60
 
     def test_insufficient_money_transfer(self):
-        self.setup_method()
         self.ext_account.transfer_money(500000, self.recv_account)
         assert self.ext_account.balance == 100
         assert self.recv_account.balance == 10

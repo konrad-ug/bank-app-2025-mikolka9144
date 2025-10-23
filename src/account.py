@@ -1,10 +1,20 @@
 import math
 
-class Account:
+class BaseAccount:
+    def __init__(self):
+        self.balance = 0
+    def transfer_money(self, amount, recipient_account):
+        if amount <= self.balance:
+            self.balance -= amount
+            recipient_account.balance += amount
+
+
+class Account(BaseAccount):
     def __init__(self, first_name, last_name,pesel,promo_code=None):
+        super().__init__()
         self.first_name = first_name
         self.last_name = last_name
-        self.balance = 0
+        
         if pesel != None and len(pesel) != 11:
             self.pesel = "Invalid"
         else:
@@ -19,7 +29,12 @@ class Account:
         else:
             year = 2000 + year
         return current_year - year
-    def transfer_money(self, amount, recipient_account):
-        if amount <= self.balance:
-            self.balance -= amount
-            recipient_account.balance += amount
+    
+class CompanyAccount(BaseAccount):
+        def __init__(self, company_name, nip_number):
+            super().__init__()
+            self.company_name = company_name
+            if(len(nip_number) != 10):
+                self.nip_number = "Invalid"
+            else:
+                self.nip_number = nip_number

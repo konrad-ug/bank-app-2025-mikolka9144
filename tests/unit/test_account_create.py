@@ -15,7 +15,7 @@ class TestAccount:
         assert account.pesel == "Invalid"
 
     def test_account_creation_with_promo_code(self):
-        account = Account("Jane", "Doe",pesel="80345678901", promo_code="PROM_110")
+        account = Account("Jane", "Doe",pesel="10345678901", promo_code="PROM_110")
         assert account.balance == 50   
 
     def test_account_creation_with_invalid_promo_code(self):

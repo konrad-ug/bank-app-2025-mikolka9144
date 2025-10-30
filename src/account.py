@@ -8,11 +8,14 @@ class BaseAccount:
         if amount <= self.balance:
             self.balance -= amount
             recipient_account.balance += amount
+            self.history.append(-amount)
+            recipient_account.history.append(amount)
     def express_transfer(self,amount,recipient_account,provision = 0):
         if amount > self.balance:
             return
         self.transfer_money(amount,recipient_account)
         self.balance -= provision
+        self.history.append(-provision)
 
 
 class Account(BaseAccount):
@@ -27,6 +30,7 @@ class Account(BaseAccount):
             self.pesel = pesel
             if promo_code != None and promo_code.startswith("PROM_") and len(promo_code) == 8 and self.get_age() < 65:
                 self.balance += 50
+                self.history.append(50)
     def get_age(self):
         current_year = 2025 # update this every year pls :)
         year = int(self.pesel[:2])
